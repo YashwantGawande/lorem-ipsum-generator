@@ -1,33 +1,40 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import data from './data'
+
 
 function App() {
   const [count, setCount] = useState(0)
+  const [text,setText] = useState([]
+    )
+
+    const handleSubmit = (e) =>{
+      e.preventDefault()
+      let amount = parseInt(count)
+      if(count < 0){
+        amount = 1
+      }
+      if(count > 8){
+        amount = 8
+      }
+      setText(data.slice(0,amount))
+    }
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
+    <section className='section-center'>
+      <h3>tired of bring lorem ipsum</h3>
+      <form className='lorem-form' onSubmit={handleSubmit}>
+        <label htmlFor="amount">
+          paragraphs:
+        </label>
+        <input type="number" name="amount" id="amount" value={count} onChange={(e)=>setCount(e.target.value)}/>
+        <button className="btn">generate</button>
+      </form>
+      <article className='lorem-text'>
+        {text.map((item,index) =>{
+          return <p key={index}>{item}</p>
+        })}
+      </article>
+    </section>
   )
 }
 
